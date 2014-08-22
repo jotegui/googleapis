@@ -150,10 +150,12 @@ class BigQuery(GoogleAPI):
     
     # LOAD OPERATIONS #
     
-    def create_load_job(self, ds_name, table_name, uri_list):
-        """Creates a new job for loading a list of URIs into a table within a dataset."""
+    def create_load_job(self, ds_name, table_name, uri_list, schema):
+        """Creates a new job for loading a list of URIs into a table within a dataset. Returns the jobId."""
         
-        harvest_schema = json.load(open(os.path.join(os.path.dirname(__file__), 'harvest_schema.json')))
+        # uri_list has to be a list. If uri_list is a single uri (string), convert that into a list
+        if type(uri_list) == type('a'):
+            uri_list = [uri_list]
         
         req_body = {
             "kind": "bigquery#job",
@@ -165,7 +167,7 @@ class BigQuery(GoogleAPI):
                         "datasetId": ds_name
                     },
                     "sourceUris": uri_list,
-                    "schema": harvest_schema,
+                    "schema": schema,
                     "fieldDelimiter": "\t"
                 }
             }
@@ -186,7 +188,7 @@ class BigQuery(GoogleAPI):
 #        job_id = resp['jobReference']['jobId']
 #        print job_id
         
-        return resp
+        return resp['jobReference']['jobId']
     
     
     def wait_load(self, job_id):
