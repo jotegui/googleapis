@@ -28,7 +28,7 @@ Besides, each module requires providing some configuration values. Specifically:
 
 These should be provided in the form of a dictionary with the aforementioned keys. My personal recommendation is to create a module named cred.py with two dictionaries, one for each service:
 
-    _in cred.py_
+    [in cred.py]
     bq_cred = {
         "project_number": 1234,
         "project_id": XXXX
