@@ -31,11 +31,11 @@ These should be provided in the form of a dictionary with the aforementioned key
     [in cred.py]
     bq_cred = {
         "project_number": 1234,
-        "project_id": XXXX
+        "project_id": "XXXX"
     }
     
     cs_cred = {
-        "bucket_name": XXXX
+        "bucket_name": "XXXX"
     }
 
 How it works
@@ -50,4 +50,6 @@ Then, initialize the service
 
     bq = BigQuery.BigQuery(bq_cred)
 
-The first time an instance is initialized, it will redirect to an authentication page. The authentication mechanism will create a 'bigquery.dat' or 'storage.dat' file in the folder, so that authentication is not made twice.
+The first time an instance is initialized, it will redirect to an authentication page. The authentication mechanism will create a 'bigquery.dat' or 'storage.dat' file in the folder, to avoid having to re-authenticate every time.
+
+Each object has a method called 'methods' that shows the available methods and a brief description.
